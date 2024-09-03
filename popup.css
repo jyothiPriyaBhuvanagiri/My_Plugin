@@ -1,0 +1,43 @@
+body {
+    font-family: Arial, sans-serif;
+    width: 300px;
+    padding: 10px;
+    margin: 0;
+}
+
+#note-container {
+    display: flex;
+    flex-direction: column;
+}
+
+#note-area {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+#toolbar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+#toolbar button {
+    margin-right: 5px;
+}
+
+#notes-list {
+    margin-top: 10px;
+    max-height: 150px;
+    overflow-y: auto;
+    border-top: 1px solid #ddd;
+    padding-top: 5px;
+}
+
+.note-item {
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
