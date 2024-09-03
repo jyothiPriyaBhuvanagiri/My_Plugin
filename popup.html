@@ -2,20 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quick Notes</title>
     <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-<div id="note-container">
-    <div id="note-area" placeholder="Write your note here..."></div>
-    <div id="toolbar">
-        <button id="bold-btn"><b>B</b></button>
-        <button id="italic-btn"><i>I</i></button>
-        <button id="bullet-btn">•</button>
-        <button id="save-btn">Save</button>
-    </div>
-    <div id="notes-list"></div>
+<div>
+    <h1>Quick Notes</h1>
+    <textarea id="note-input" placeholder="Write your note here..."></textarea>
+    <button id="save-note">Save Note</button> <!-- Ensure this ID matches -->
+    <div id="notes-list"></div> <!-- Ensure this element exists -->
 </div>
-<script src="popup.js"></script>
+<script src="popup.js"></script> <!-- Place the script at the end of the body -->
 </body>
 </html>

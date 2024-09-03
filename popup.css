@@ -1,30 +1,47 @@
 body {
     font-family: Arial, sans-serif;
-    width: 300px;
+    width: 200px; /* Width of the extension popup */
     padding: 10px;
     margin: 0;
+    background-color: #f9f9f9; /* Light background for better readability */
 }
 
 #note-container {
     display: flex;
     flex-direction: column;
+    align-items: stretch; /* Ensure elements use full width available */
 }
 
-#note-area {
-    width: 100%;
-    height: 100px;
+h1 {
+    font-size: 20px;
     margin-bottom: 10px;
-    padding: 5px;
+    text-align: center; /* Center the heading */
+    color: #333; /* Darker color for the heading */
 }
 
-#toolbar {
-    display: flex;
-    justify-content: space-between;
+#note-input {
+    width: 85%; /* Ensure the textarea spans full width */
+    height: 80px; /* Reduced height for better use of space */
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px; /* Rounded corners for a softer look */
+    resize: none; /* Disable resizing */
+}
+
+#save-note {
+    width: 93%; /* Button spans full width */
+    padding: 10px;
+    background-color: #007bff; /* Blue color for the button */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
     margin-bottom: 10px;
 }
 
-#toolbar button {
-    margin-right: 5px;
+#save-note:hover {
+    background-color: #0056b3; /* Darker blue on hover */
 }
 
 #notes-list {
@@ -33,11 +50,20 @@ body {
     overflow-y: auto;
     border-top: 1px solid #ddd;
     padding-top: 5px;
+    background-color: #fff; /* White background for the notes list */
+    border-radius: 4px;
 }
 
 .note-item {
-    padding: 5px;
+    padding: 8px;
     border-bottom: 1px solid #ddd;
     margin-bottom: 5px;
     cursor: pointer;
+    background-color: #f1f1f1; /* Light grey background for notes */
+    border-radius: 4px;
+    transition: background-color 0.2s; /* Smooth transition on hover */
+}
+
+.note-item:hover {
+    background-color: #e0e0e0; /* Slightly darker grey on hover */
 }
