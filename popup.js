@@ -7,47 +7,59 @@ document.addEventListener('DOMContentLoaded', function () {
         saveNoteButton.addEventListener('click', function () {
             const newNote = noteInput.value.trim();
             if (newNote) {
-                chrome.storage.local.get({ notes: [] }, function (result) {
-                    const notes = result.notes;
-                    notes.push(newNote);
-                    chrome.storage.local.set({ notes: notes }, function () {
-                        noteInput.value = ''; // Clear the input field
-                        displayNotes(notes); // Display the updated notes list
+                fetch('http://localhost:3000/save-note', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ text: newNote })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            noteInput.value = ''; // Clear the input field
+                            loadNotes(); // Reload notes after saving
+                        } else {
+                            console.error("Error saving note:", data.error);
+                        }
                     });
-                });
             }
         });
-    } else {
-        console.error("Save note button not found in the DOM.");
     }
 
     function loadNotes() {
-        chrome.storage.local.get({ notes: [] }, function (result) {
-            displayNotes(result.notes);
-        });
+        fetch('http://localhost:3000/get-notes')
+            .then(response => response.json())
+            .then(notes => {
+                notesList.innerHTML = ''; // Clear existing notes
+                notes.forEach(note => {
+                    const noteItem = document.createElement('div');
+                    noteItem.className = 'note-item';
+                    noteItem.textContent = note.text;
+                    noteItem.addEventListener('click', function () {
+                        deleteNote(note._id);
+                    });
+                    notesList.appendChild(noteItem);
+                });
+            });
     }
 
-    function displayNotes(notes) {
-        notesList.innerHTML = ''; // Clear the existing notes
-        notes.forEach((note, index) => {
-            const noteItem = document.createElement('div');
-            noteItem.className = 'note-item';
-            noteItem.textContent = note;
-            noteItem.addEventListener('click', function () {
-                deleteNote(index);
+    function deleteNote(noteId) {
+        fetch('http://localhost:3000/delete-note', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id: noteId })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    loadNotes(); // Reload the notes list after deletion
+                } else {
+                    console.error("Error deleting note:", data.error);
+                }
             });
-            notesList.appendChild(noteItem);
-        });
-    }
-
-    function deleteNote(index) {
-        chrome.storage.local.get({ notes: [] }, function (result) {
-            const notes = result.notes;
-            notes.splice(index, 1); // Remove the note at the specified index
-            chrome.storage.local.set({ notes: notes }, function () {
-                displayNotes(notes); // Update the displayed list
-            });
-        });
     }
 
     loadNotes(); // Load notes when the popup is opened
