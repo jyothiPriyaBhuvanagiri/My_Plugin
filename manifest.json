@@ -5,6 +5,6 @@
   "description": "A simple Chrome extension to take quick notes.",
   "permissions": ["storage"],
   "action": {
-    "default_popup": "popup.html"
+    "default_popup": "frontend/popup.html"
   }
 }
