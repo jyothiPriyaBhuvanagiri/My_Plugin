@@ -2,9 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-
-
-
 const app = express();
 app.use(bodyParser.json());
 
@@ -12,7 +9,7 @@ const cors = require('cors');
 app.use(cors());  // This enables CORS for all routes
 
 // Connect to MongoDB (you can replace this with your preferred database)
-mongoose.connect('mongodb://localhost:27017/notesDB', { useNewUrlParser: true, useUnifiedTopology:true });
+mongoose.connect('mongodb://mongo:27017/notesDB');
 
 // Define a schema for notes
 const noteSchema = new mongoose.Schema({
